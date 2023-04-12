@@ -1,0 +1,123 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
+@*@using Syncfusion.Blazor.Buttons
+
+<SfButton Content="Add Port" OnClick="@AddPort"></SfButton>
+<SfButton Content="Remove Port" OnClick="@RemovePorts"></SfButton>
+<SfButton Content="Upadte Port" OnClick="@UpdatePort"></SfButton>
+<SfDiagramComponent Height="500px" @ref="@diagram" Nodes="@nodes">
+</SfDiagramComponent>
+@code
+{
+    SfDiagramComponent diagram;
+    DiagramObjectCollection<Node> nodes = new DiagramObjectCollection<Node>();
+    public void RemovePorts()
+    {
+        (nodes[0].Ports as DiagramObjectCollection<PointPort>).RemoveAt(0);
+    }
+    private void AddPort()
+    {
+        PointPort port1 = new PointPort()
+            {
+                ID = "port1",
+                Offset = new DiagramPoint() { X = 0, Y = 0.5 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port2 = new PointPort()
+            {
+                ID = "port2",
+                Offset = new DiagramPoint() { X = 1, Y = 0.5 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port3 = new PointPort()
+            {
+                ID = "port3",
+                Offset = new DiagramPoint() { X = 0.5, Y = 0 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port4 = new PointPort()
+            {
+                ID = "port4",
+                Offset = new DiagramPoint() { X = 0.5, Y = 1 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        //Add multiple ports in the port collection.
+        nodes[0].Ports.Add(port1);
+        nodes[0].Ports.Add(port2);
+        nodes[0].Ports.Add(port3);
+        nodes[0].Ports.Add(port4);
+
+    }
+    protected override void OnInitialized()
+    {
+        Node node1 = createNode("node1", 100, 100, "Node1");
+        Node node2 = createNode("node2", 300, 100, "Node2");
+        nodes.Add(node1);
+        nodes.Add(node2);
+    }
+    public async void UpdatePort()
+    {
+        //Update ports at run time.
+        diagram.BeginUpdate();
+        nodes[0].Ports[0].Offset.X = 0;
+        nodes[0].Ports[0].Offset.Y = 0;
+        await diagram.EndUpdate();
+    }
+    public Node createNode(string id, double offsetX, double offsetY, string content)
+    {
+        Node node = new Node()
+            {
+                ID = id,
+                OffsetX = offsetX,
+                OffsetY = offsetY,
+                Height = 100,
+                Width = 100,
+                Style = new ShapeStyle() { Fill = "#6495ED" },
+                Annotations = new DiagramObjectCollection<ShapeAnnotation>()
+                {
+                    new ShapeAnnotation()
+                    {
+                        Content = content
+                    }
+                },
+                Ports = new DiagramObjectCollection<PointPort>()
+            {
+               new PointPort()
+               {
+                   Style = new ShapeStyle(){ Fill = "gray" },
+                   // Sets the position for the port.
+                   Offset = new DiagramPoint() { X = 0.5, Y = 0.5 },
+                   Visibility = PortVisibility.Visible,
+                   HorizontalAlignment = HorizontalAlignment.Left,
+                   VerticalAlignment  = VerticalAlignment.Top,
+                   Shape = PortShapes.X,
+                   Constraints = PortConstraints.Default | PortConstraints.Draw
+               }
+            }
+            };
+
+        return node;
+    }
+}*@
+
