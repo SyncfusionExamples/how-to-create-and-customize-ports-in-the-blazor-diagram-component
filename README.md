@@ -1,0 +1,2 @@
+# how-to-create-and-customize-ports-in-the-blazor-diagram-component
+A quick start Blazor project that shows how to create and add ports nodes programmatically and dynamically.  This project includes a code snippet to add multiple ports, update port properties dynamically. It also includes a code snippet to customize the appearance and position of the ports, as well as how to connect nodes using ports.
