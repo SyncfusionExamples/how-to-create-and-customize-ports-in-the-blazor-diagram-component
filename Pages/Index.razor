@@ -1,0 +1,105 @@
+﻿@page "/"
+
+@using Syncfusion.Blazor.Buttons
+
+<SfButton Content="Add" OnClick="@AddPort"></SfButton>
+<SfButton Content="Upadte" OnClick="@UpdatePort"></SfButton>
+<SfDiagramComponent Height="700px" @ref="@diagram" Nodes="@nodes">
+</SfDiagramComponent>
+@code{
+    SfDiagramComponent diagram;
+    DiagramObjectCollection<Node> nodes = new DiagramObjectCollection<Node>();
+    private void AddPort()
+    {
+        PointPort port1 = new PointPort()
+            {
+                ID = "port1",
+                Offset = new DiagramPoint() { X = 0, Y = 0.5 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port2 = new PointPort()
+            {
+                ID = "port2",
+                Offset = new DiagramPoint() { X = 1, Y = 0.5 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port3 = new PointPort()
+            {
+                ID = "port3",
+                Offset = new DiagramPoint() { X = 0.5, Y = 0 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        PointPort port4 = new PointPort()
+            {
+                ID = "port4",
+                Offset = new DiagramPoint() { X = 0.5, Y = 1 },
+                Visibility = PortVisibility.Visible,
+                Style = new ShapeStyle() { Fill = "gray" }
+            };
+        //Add multiple ports in the port collection.
+        nodes[0].Ports.Add(port1);
+        nodes[0].Ports.Add(port2);
+        nodes[0].Ports.Add(port3);
+        nodes[0].Ports.Add(port4);
+
+    }
+    public async void UpdatePort()
+    {
+        //Update ports at run time.
+        diagram.BeginUpdate();
+        nodes[0].Ports[0].Offset.X = 0;
+        nodes[0].Ports[0].Offset.Y = 0;
+        await diagram.EndUpdate();
+    }
+    protected override void OnInitialized()
+    {
+        Node node = new Node()
+            {
+                // Position of the node.
+                OffsetX = 250,
+                OffsetY = 250,
+                // Size of the node.
+                Width = 100,
+                Height = 100,
+                Style = new ShapeStyle() { Fill = "#6495ED", StrokeColor = "white" },
+                Ports = new DiagramObjectCollection<PointPort>()
+                {
+                    new PointPort()
+                    {
+                        ID = "Port1",
+                        Offset = new DiagramPoint() { X=1, Y=0.5},
+                        Visibility = PortVisibility.Visible,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        VerticalAlignment  = VerticalAlignment.Bottom,
+                        Style = new ShapeStyle()
+                    {
+                        Fill = "red",
+                        StrokeColor = "black",
+                        StrokeWidth = 2
+                    },
+                        Shape = PortShapes.Custom,
+                        PathData = "M540.3643,137.9336L546.7973,159.7016L570.3633,159.7296L550.7723,171.9366L558.9053,194.9966L540.3643,179.4996L521.8223,194.9966L529.9553,171.9366L510.3633,159.7296L533.9313,159.7016L540.3643,137.9336z",
+                        Constraints = PortConstraints.Default | PortConstraints.Draw
+
+                    }
+                }
+            };
+        Node node1 = new Node()
+            {
+                // Position of the node.
+                OffsetX = 550,
+                OffsetY = 250,
+                // Size of the node.
+                Width = 100,
+                Height = 100,
+                Style = new ShapeStyle() { Fill = "#6495ED", StrokeColor = "white" }
+
+            };
+        nodes.Add(node);
+        nodes.Add(node1);
+        
+    }
+}
